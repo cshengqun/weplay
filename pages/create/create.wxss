@@ -1,0 +1,460 @@
+/* pages/create/create.wxss */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-actions {
+  display: flex;
+  align-items: center;
+}
+/* 比赛结果卡片 */
+.result-done {
+  color: #1B7A4B;
+}
+.done-banner {
+  background: #EAF4EE;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 8rpx;
+}
+.done-banner-text {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1B7A4B;
+}
+.done-banner-sub {
+  display: block;
+  font-size: 22rpx;
+  color: #5B8A70;
+  margin-top: 6rpx;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid #F0F2F1;
+}
+.result-item:last-of-type {
+  border-bottom: none;
+}
+.result-label {
+  width: 96rpx;
+  flex-shrink: 0;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2C3E34;
+}
+.result-info {
+  flex: 1;
+  min-width: 0;
+}
+.result-status {
+  font-size: 24rpx;
+  color: #C77A1E;
+}
+.result-status.done {
+  color: #1B7A4B;
+  font-weight: 600;
+}
+.result-top3 {
+  margin-top: 8rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.rt {
+  font-size: 22rpx;
+  color: #4A5A51;
+  background: #F0F2F1;
+  border-radius: 999rpx;
+  padding: 4rpx 16rpx;
+}
+.act-arrow {
+  color: #B9C4BE;
+  font-size: 32rpx;
+  margin-left: 12rpx;
+}
+.result-hint {
+  font-size: 22rpx;
+  color: #8A9890;
+  text-align: center;
+  padding-top: 16rpx;
+}
+.clear-link {
+  font-size: 26rpx;
+  color: #B9C4BE;
+  padding: 4rpx 0 4rpx 24rpx;
+}
+.clear-link:active {
+  color: #D64B4B;
+}
+.stat-line {
+  margin-bottom: 16rpx;
+}
+.form-tip {
+  color: #7C8B83;
+  font-size: 26rpx;
+  margin-left: 16rpx;
+}
+.picker-val {
+  color: #1F2D27;
+}
+/* 分享栏 */
+.share-bar {
+  margin-top: 24rpx;
+}
+.share-btn {
+  width: 100%;
+}
+.share-btn[disabled] {
+  opacity: 0.45;
+  color: #8A9890 !important;
+  background: #EEF2EF !important;
+}
+.share-status {
+  text-align: center;
+  font-size: 22rpx;
+  margin-top: 12rpx;
+}
+.share-status.ok {
+  color: #1B7A4B;
+}
+.share-status.warn {
+  color: #C77A1E;
+}
+.del-link {
+  text-align: center;
+  color: #D64B4B;
+  font-size: 26rpx;
+  padding: 28rpx 0 4rpx;
+  opacity: 0.85;
+}
+.mini-empty {
+  color: #8A9890;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 40rpx 0 32rpx;
+}
+
+/* 球员行 */
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #F0F2F1;
+}
+.player-row:last-of-type {
+  border-bottom: none;
+}
+.player-name {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+.player-del {
+  color: #B9C4BE;
+  font-size: 24rpx;
+  padding: 8rpx 0 8rpx 32rpx;
+}
+.player-del:active {
+  color: #D64B4B;
+}
+
+/* 添加球员 */
+.add-box {
+  margin-top: 20rpx;
+  background: #F7FAF8;
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+.add-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  color: #2C3E34;
+}
+.add-input-row {
+  margin-bottom: 16rpx;
+}
+.add-input {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #E3EBE6;
+}
+.add-opts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.opt-label {
+  width: 80rpx;
+  color: #4A5A51;
+  font-size: 26rpx;
+}
+.chip {
+  background: #FFFFFF;
+  border: 2rpx solid #DCE5DF;
+  color: #4A5A51;
+  border-radius: 999rpx;
+  padding: 12rpx 36rpx;
+  font-size: 26rpx;
+  margin-right: 16rpx;
+}
+.chip.on {
+  background: #EAF4EE;
+  border-color: #1B7A4B;
+  color: #1B7A4B;
+  font-weight: 600;
+}
+.chip-picker {
+  min-width: 120rpx;
+  text-align: center;
+}
+.add-btn {
+  margin-top: 8rpx;
+}
+.add-tip {
+  font-size: 22rpx;
+  color: #8A9890;
+  margin-top: 16rpx;
+  text-align: center;
+}
+
+/* 名单行信息区占满中间 */
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+/* 头像选择与展示 v4：严格正圆 */
+.add-avatar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.avatar-btn {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 120rpx;
+  height: 120rpx;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  line-height: 1;
+  box-shadow: 0 4rpx 14rpx rgba(27, 122, 75, 0.14);
+}
+.avatar-btn::after {
+  border: none;
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  border: 3rpx solid #FFFFFF;
+  box-sizing: border-box;
+}
+.avatar-ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #EAF6EF, #D5EBDE);
+  box-shadow: inset 0 0 0 3rpx #C2E0CE;
+}
+.avatar-ph::before {
+  content: '';
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: #9CCDB1;
+}
+.avatar-ph::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53%;
+  height: 28%;
+  border-radius: 50% 50% 0 0;
+  background: #9CCDB1;
+}
+.nick-pill {
+  flex: 1;
+  margin-left: 24rpx;
+  height: 100rpx;
+  background: #F4F6F5;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+.nick-pill.pill-focus {
+  background: #FFFFFF;
+  border-color: #1B7A4B;
+  box-shadow: 0 0 0 6rpx rgba(27, 122, 75, 0.08);
+}
+.nick-input {
+  flex: 1;
+  height: 100%;
+  font-size: 30rpx;
+  color: #2B3A33;
+}
+.nick-ph {
+  color: #AEBAB3;
+  font-size: 28rpx;
+}
+.avatar-tip {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  margin: 12rpx 0 20rpx 4rpx;
+  line-height: 1.5;
+}
+.player-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  background: #EAF4EE;
+}
+.avatar-img-sm {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: block;
+  border: 2rpx solid #EAF4EE;
+  box-sizing: border-box;
+}
+.avatar-ph-sm {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1B7A4B;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+/* ===== 头像+昵称 v5：紧凑正圆（覆盖旧规则，追加在尾部优先级最高） ===== */
+.add-avatar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rpx;
+}
+.avatar-btn {
+  width: 88rpx !important;
+  height: 88rpx !important;
+  max-width: 88rpx !important;
+  max-height: 88rpx !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1 !important;
+  font-size: 0 !important;
+  box-shadow: 0 3rpx 10rpx rgba(27, 122, 75, 0.12);
+}
+.avatar-btn::after {
+  border: none !important;
+}
+.avatar-img {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50% !important;
+  display: block;
+  box-sizing: border-box;
+}
+.avatar-ph {
+  position: relative;
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #EAF6EF, #D5EBDE);
+  box-shadow: inset 0 0 0 3rpx #C2E0CE;
+}
+.avatar-ph::before {
+  content: '';
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: #9CCDB1;
+}
+.avatar-ph::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53%;
+  height: 28%;
+  border-radius: 50% 50% 0 0;
+  background: #9CCDB1;
+}
+.nick-pill {
+  flex: 1;
+  margin-left: 20rpx;
+  height: 88rpx;
+  background: #F4F6F5;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 28rpx;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+.nick-pill.pill-focus {
+  background: #FFFFFF;
+  border-color: #1B7A4B;
+  box-shadow: 0 0 0 6rpx rgba(27, 122, 75, 0.08);
+}
+.nick-input {
+  flex: 1;
+  height: 100%;
+  font-size: 30rpx;
+  color: #2B3A33;
+}
+.nick-ph {
+  color: #AEBAB3;
+  font-size: 28rpx;
+}
+.avatar-tip {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  margin: 10rpx 0 16rpx 4rpx;
+  line-height: 1.5;
+}

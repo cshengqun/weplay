@@ -1,0 +1,180 @@
+<view class="page">
+  <!-- 加载 / 错误 -->
+  <view wx:if="{{loading}}" class="empty">
+    <view class="empty-badge">···</view>
+    <view class="empty-sub">正在加载…</view>
+  </view>
+
+  <view wx:elif="{{error}}" class="empty">
+    <view class="empty-badge">!</view>
+    <view class="empty-title">无法查看</view>
+    <view class="empty-sub">{{error}}</view>
+    <view class="empty-sub" style="margin-top:24rpx;font-size:22rpx;color:#B9C4BE;">
+      需要发起者：微信开发者工具 → 云开发 → 开通并创建集合 activities
+    </view>
+  </view>
+
+  <block wx:else>
+    <!-- 球局信息 -->
+    <view class="card">
+      <view class="card-title">{{activity.name}}</view>
+      <view class="act-info">
+        <view class="act-info-item">
+          <text class="act-info-label">时间</text>
+          <text class="act-info-val">{{activity.timeText}}</text>
+        </view>
+        <view class="act-info-item">
+          <text class="act-info-label">场地</text>
+          <text class="act-info-val">{{activity.courts}} 片</text>
+        </view>
+        <view class="act-info-item">
+          <text class="act-info-label">报名</text>
+          <text class="act-info-val">{{players.length}} 人</text>
+        </view>
+      </view>
+      <view wx:if="{{isDone}}" class="done-banner">
+        <text class="done-banner-text">🏁 比赛已结束</text>
+        <text class="done-banner-sub">最终结果如下</text>
+      </view>
+      <view wx:elif="{{progressText}}" class="progress-tip">{{progressText}}</view>
+      <view class="share-tip">点右上角「···」可转发</view>
+    </view>
+
+    <!-- 待我确认提示 -->
+    <view class="todo-bar" wx:if="{{totalPendingForMe > 0}}">
+      <text class="todo-text">你有 {{totalPendingForMe}} 场比赛比分待确认，请在下方核对</text>
+    </view>
+
+    <!-- 比赛结果 -->
+    <view class="card" wx:if="{{results.length > 0}}">
+      <view class="card-title">比赛结果</view>
+      <view wx:for="{{results}}" wx:key="type" class="res-block">
+        <view class="res-head">
+          <text class="res-label">{{item.label}}</text>
+          <text class="res-status {{item.done ? 'done' : ''}}">{{item.scored}}/{{item.total}} 场 · {{item.statusText}}</text>
+        </view>
+        <view class="cur-round-bar" wx:if="{{!item.done && item.curRoundText}}">
+          <text class="cur-round-tag">进行中</text>
+          <text class="cur-round-text">现在打{{item.curRoundText}} · 本轮上场：{{item.onCourtNamesText}}</text>
+        </view>
+        <view class="res-target" wx:if="{{item.targetScore > 0}}">每场先到 {{item.targetScore}} 分者胜</view>
+
+        <!-- 战绩榜 -->
+        <view class="lb-head">
+          <text class="lb-c1">#</text>
+          <text class="lb-c2">球员</text>
+          <text class="lb-c3">场</text>
+          <text class="lb-c3">胜</text>
+          <text class="lb-c3">负</text>
+          <text class="lb-c3">净胜分</text>
+          <text class="lb-c4">胜率</text>
+        </view>
+        <view wx:for="{{item.leaderboard}}" wx:for-item="p" wx:key="idx" class="lb-row {{p.rank <= 3 && p.plays > 0 ? 'top' : ''}}">
+          <text class="lb-c1 {{p.rank <= 3 && p.plays > 0 ? 'rank' : ''}}">{{p.rank}}</text>
+          <view class="lb-player">
+  <image wx:if="{{p.avatar}}" src="{{p.avatar}}" class="lb-avatar" mode="aspectFill" />
+  <view wx:else class="lb-avatar-ph">{{p.name[0]}}</view>
+  <text class="lb-name">{{p.name}}</text>
+</view>
+          <text class="lb-c3">{{p.plays}}</text>
+          <text class="lb-c3">{{p.wins}}</text>
+          <text class="lb-c3">{{p.losses}}</text>
+          <text class="lb-c3">{{p.net > 0 ? '+' + p.net : p.net}}</text>
+          <text class="lb-c4">{{p.winRateText}}</text>
+        </view>
+
+        <!-- 轮次对阵表 -->
+        <view wx:for="{{item.rounds}}" wx:for-item="rd" wx:for-index="ri" wx:key="no" class="rd-block {{rd.isCurrent ? 'current' : ''}}">
+          <view class="rd-head">第 {{rd.no}} 轮{{rd.isCurrent ? '（现在）' : ''}}</view>
+          <view wx:for="{{rd.matches}}" wx:for-item="m" wx:key="court" class="rd-match">
+            <view class="rd-top">
+              <text class="rd-court">场{{m.court}}</text>
+              <text class="rd-score {{m.winnerA ? 'win' : m.winnerB ? 'win-r' : ''}}">{{m.sA}} : {{m.sB}}</text>
+            </view>
+            <view class="rd-sides">
+              <view class="rd-team {{m.winnerA ? 'win' : ''}}">
+                <view wx:for="{{m.teamA}}" wx:for-item="p" wx:key="name" class="rd-player">
+                  <image wx:if="{{p.avatar}}" src="{{p.avatar}}" class="rd-avatar" mode="aspectFill" />
+                  <view wx:else class="rd-avatar-ph">{{p.name[0]}}</view>
+                  <text class="rd-pname" data-name="{{p.name}}{{p.genderMark}}" bindtap="onNameTap">{{p.name}}<text class="rd-gmark">{{p.genderMark}}</text></text>
+                </view>
+              </view>
+              <view class="rd-vs">VS</view>
+              <view class="rd-team right {{m.winnerB ? 'win' : ''}}">
+                <view wx:for="{{m.teamB}}" wx:for-item="p" wx:key="name" class="rd-player">
+                  <image wx:if="{{p.avatar}}" src="{{p.avatar}}" class="rd-avatar" mode="aspectFill" />
+                  <view wx:else class="rd-avatar-ph">{{p.name[0]}}</view>
+                  <text class="rd-pname" data-name="{{p.name}}{{p.genderMark}}" bindtap="onNameTap">{{p.name}}<text class="rd-gmark">{{p.genderMark}}</text></text>
+                </view>
+              </view>
+            </view>
+            <!-- 结果确认（仅本场参与者） -->
+            <view class="mcf" wx:if="{{m.iInMatch}}">
+              <view class="mcf-state mcf-{{m.cfStatus}}">{{m.cfText}}</view>
+              <view class="mcf-btns" wx:if="{{m.canConfirm}}">
+                <button class="mcf-btn ok" data-type="{{m.type}}" data-key="{{m.key}}" bindtap="onConfirmMatch">确认比分</button>
+                <button class="mcf-btn no" data-type="{{m.type}}" data-key="{{m.key}}" bindtap="onDisputeMatch">比分有误</button>
+              </view>
+              <view class="mcf-wait" wx:elif="{{m.iConfirmed && m.cfStatus === 'pending'}}">你已确认，等待其他球友</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已报名名单 -->
+    <view class="card">
+      <view class="card-title">报名名单（{{players.length}} 人）</view>
+      <view class="stat-line" wx:if="{{players.length > 0}}">
+        <text class="tag">男 {{maleCount}}</text>
+        <text class="tag tag-orange">女 {{femaleCount}}</text>
+      </view>
+      <view wx:if="{{players.length === 0}}" class="mini-empty">
+        还没有人报名
+      </view>
+      <view wx:for="{{players}}" wx:key="id" class="player-row">
+        <view class="player-avatar">
+          <image wx:if="{{item.avatar}}" src="{{item.avatar}}" class="avatar-img-sm" mode="aspectFill" />
+          <view wx:else class="avatar-ph-sm">{{item.name[0]}}</view>
+        </view>
+        <view class="player-info">
+          <view class="player-name">{{item.name}}</view>
+          <view class="player-tags">
+            <text class="tag {{item.gender === 'male' ? '' : item.gender === 'female' ? 'tag-orange' : 'tag-gray'}}">{{item.genderText}}</text>
+            <text class="tag tag-gray" wx:if="{{item.levelText !== '未设置'}}">{{item.levelText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 报名表单（仅未完成时显示） -->
+    <view class="card" wx:if="{{!isDone}}">
+      <view class="card-title">我要报名</view>
+      <view class="add-box">
+        <view class="add-avatar-row">
+          <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+            <image wx:if="{{newAvatar}}" src="{{newAvatar}}" class="avatar-img" mode="aspectFill" />
+            <view wx:else class="avatar-ph"></view>
+          </button>
+          <view class="nick-pill {{nickFocus ? 'pill-focus' : ''}}">
+            <input class="nick-input" type="nickname" placeholder="点此一键使用微信昵称" placeholder-class="nick-ph" value="{{newName}}" bindinput="onNameInput" bindfocus="onNickFocus" bindblur="onNickBlur" maxlength="12" confirm-type="done" />
+          </view>
+        </view>
+        <view class="avatar-tip">{{newName ? '已记住昵称/性别/水平，确认即可报名' : '第一次点一下输入框，用微信昵称授权，之后自动带出'}} · 性别需手动选择</view>
+        <view class="add-opts">
+          <view class="opt-label">性别</view>
+          <view class="chip {{newGender === 'male' ? 'on' : ''}}" bindtap="onGenderTap" data-gender="male">男</view>
+          <view class="chip {{newGender === 'female' ? 'on' : ''}}" bindtap="onGenderTap" data-gender="female">女</view>
+        </view>
+        <view class="add-opts">
+          <view class="opt-label">水平</view>
+          <picker range="{{levelRange}}" value="{{levelIndex}}" bindchange="onLevelChange">
+            <view class="chip chip-picker {{newLevel ? 'on' : ''}}">{{newLevel ? levelRange[levelIndex] : '选填'}}</view>
+          </picker>
+        </view>
+        <button class="btn btn-primary add-btn" bindtap="submit" disabled="{{submitting}}">提交报名</button>
+        <view class="add-tip">性别用于混双轮转，双打/单打可不填</view>
+      </view>
+    </view>
+  </block>
+</view>

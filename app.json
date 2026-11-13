@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/create/create",
+    "pages/rotation/rotation",
+    "pages/schedule/schedule",
+    "pages/join/join",
+    "pages/leaderboard/leaderboard"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1B7A4B",
+    "navigationBarTitleText": "球局轮转",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F3F6F4",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8A978F",
+    "selectedColor": "#1B7A4B",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/tab/home.png",
+        "selectedIconPath": "assets/tab/home_on.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "发起球局",
+        "iconPath": "assets/tab/plus.png",
+        "selectedIconPath": "assets/tab/plus_on.png"
+      },
+      {
+        "pagePath": "pages/leaderboard/leaderboard",
+        "text": "排行榜",
+        "iconPath": "assets/tab/rank.png",
+        "selectedIconPath": "assets/tab/rank_on.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

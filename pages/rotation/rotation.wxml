@@ -1,0 +1,110 @@
+<view class="page">
+  <view class="page-head">
+    <view class="page-title">生成轮转</view>
+    <view class="page-sub">根据报名名单自动安排对阵与轮换</view>
+  </view>
+
+  <!-- 报名概况 -->
+  <view class="card">
+    <view class="card-title">报名概况</view>
+    <view class="stat-line">
+      <text class="tag">共 {{playerCount}} 人</text>
+      <text class="tag">男 {{maleCount}}</text>
+      <text class="tag tag-orange">女 {{femaleCount}}</text>
+      <text class="tag tag-gray" wx:if="{{unknownCount > 0}}">未设性别 {{unknownCount}}</text>
+    </view>
+    <view class="warn-line" wx:if="{{unknownCount > 0}}">未设置性别的球员不会进入混双轮转</view>
+  </view>
+
+  <!-- 轮转类型 -->
+  <view class="card">
+    <view class="card-title">轮转类型</view>
+    <view class="type-grid">
+      <view wx:for="{{types}}" wx:key="key"
+        class="type-item {{type === item.key ? 'on' : ''}}"
+        bindtap="onTypeTap" data-key="{{item.key}}">
+        <view class="type-label">{{item.label}}</view>
+        <view class="type-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 场地数 -->
+  <view class="card">
+    <view class="card-title">场地数</view>
+    <view class="form-row">
+      <view class="form-label">可用场地</view>
+      <view class="stepper">
+        <view class="stepper-btn {{courts <= 1 ? 'disabled' : ''}}" bindtap="courtsMinus">−</view>
+        <view class="stepper-num">{{courts}}</view>
+        <view class="stepper-btn {{courts >= 10 ? 'disabled' : ''}}" bindtap="courtsPlus">＋</view>
+      </view>
+      <view class="form-tip">片 · 场地不足时会自动减少</view>
+    </view>
+  </view>
+
+  <!-- 轮数：按时长估算 + 公平轮数推荐 -->
+  <view class="card">
+    <view class="card-title">轮数</view>
+    <view class="form-row">
+      <view class="form-label">每场用时</view>
+      <view class="target-chips">
+        <view wx:for="{{perMatchOptions}}" wx:key="*this"
+          class="chip {{perMatch === item ? 'on' : ''}}"
+          bindtap="onPerMatch" data-v="{{item}}">{{item}} 分钟</view>
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-label">时长估算</view>
+      <view class="form-tip">{{timeNote}}</view>
+    </view>
+    <view class="form-row">
+      <view class="form-label">选择轮数</view>
+      <view class="target-chips">
+        <view wx:for="{{fairOptions}}" wx:key="r"
+          class="chip round-chip {{customRounds === item.r ? 'on' : ''}}"
+          bindtap="onRoundPreset" data-r="{{item.r}}">
+          {{item.label}} · {{item.per}}
+        </view>
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-label">自定义</view>
+      <view class="stepper">
+        <view class="stepper-btn {{customRounds <= 1 ? 'disabled' : ''}}" bindtap="roundsMinus">−</view>
+        <view class="stepper-num">{{customRounds}}</view>
+        <view class="stepper-btn {{customRounds >= 30 ? 'disabled' : ''}}" bindtap="roundsPlus">＋</view>
+      </view>
+      <view class="form-tip">轮</view>
+    </view>
+    <view class="hint-line">{{fairHint}}</view>
+  </view>
+
+  <!-- 目标分数 -->
+  <view class="card">
+    <view class="card-title">每场目标分数</view>
+    <view class="form-row">
+      <view class="form-label">先到几分胜</view>
+      <view class="target-chips">
+        <view
+          wx:for="{{targetPresets}}"
+          wx:key="*this"
+          class="chip {{targetScore === item ? 'on' : ''}}"
+          bindtap="onTargetPreset"
+          data-score="{{item}}">
+          {{item}} 分
+        </view>
+        <view class="chip {{targetInput ? 'on' : ''}}" bindtap="onTargetCustom">
+          <input class="target-input" type="number" value="{{targetInput}}" bindinput="onTargetInput" placeholder="自定义" maxlength="3" />
+        </view>
+      </view>
+      <view class="form-tip">记分时按此判定胜负（如 21:18）</view>
+    </view>
+  </view>
+
+  <view class="footer-bar">
+    <button class="btn btn-primary {{generating ? 'btn-disabled' : ''}}" bindtap="onGenerate">
+      {{generating ? '生成中…' : '生成轮转表'}}
+    </button>
+  </view>
+</view>

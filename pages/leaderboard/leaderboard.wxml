@@ -1,0 +1,76 @@
+<view class="page">
+  <view class="page-head">
+    <view class="page-title">全国段位榜</view>
+    <view class="page-sub">按已确认比赛的综合 ELO 排名 · 完成 5 场定级赛上榜</view>
+  </view>
+
+  <view wx:if="{{loadError}}" class="lb-error">{{loadError}}</view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <view class="empty-badge">···</view>
+    <view class="empty-sub">正在从云端加载…</view>
+  </view>
+
+  <block wx:elif="{{!empty || myRank}}">
+    <!-- 我的段位 -->
+    <view class="card my-tier" wx:if="{{myRank}}">
+      <view class="mt-head">
+        <image wx:if="{{myRank.avatar}}" src="{{myRank.avatar}}" class="mt-avatar" mode="aspectFill" />
+        <view wx:else class="mt-avatar-ph">{{myRank.name[0]}}</view>
+        <view class="mt-id">
+          <view class="mt-name">{{myRank.name}}</view>
+          <view class="mt-tiername tier-{{myRank.tierKey}} {{myRank.isKing ? 'king' : ''}}">{{myRank.tierName}}</view>
+        </view>
+        <view class="mt-elo">
+          <view class="mt-elonum">{{myRank.combined}}</view>
+          <view class="mt-elolabel">综合 ELO</view>
+        </view>
+      </view>
+      <view class="mt-sub">
+        <text wx:if="{{myRank.placing}}">{{myRank.subText}}</text>
+        <text wx:else>{{myRank.subText}} · {{myRank.starText}}</text>
+      </view>
+    </view>
+
+    <view class="card my-tier my-empty-card" wx:else>
+      <view class="mt-name">我的段位</view>
+      <view class="mt-empty-sub">还没有段位，报名参加球局、完成 5 场定级赛并确认比分后上榜</view>
+    </view>
+
+    <!-- 全国段位榜 -->
+    <view class="card" wx:if="{{!empty}}">
+      <view class="card-title-row">
+        <view class="card-title">全国排名</view>
+        <view class="lb-note">前 {{list.length}} 名</view>
+      </view>
+      <view class="nb-head">
+        <text class="nb-c1">#</text>
+        <view class="nb-c2">球员</view>
+        <view class="nb-c3">段位</view>
+        <text class="nb-c4">ELO</text>
+      </view>
+      <view wx:for="{{list}}" wx:key="rank" class="nb-row {{item.rank <= 3 ? 'top' : ''}}">
+        <text class="nb-c1 {{item.rank <= 3 ? 'rank' : ''}}">{{item.rank}}</text>
+        <view class="nb-player">
+          <image wx:if="{{item.avatar}}" src="{{item.avatar}}" class="nb-avatar" mode="aspectFill" />
+          <view wx:else class="nb-avatar-ph">{{item.name[0]}}</view>
+          <text class="nb-name" data-name="{{item.name}}" bindtap="onNameTap">{{item.name}}</text>
+        </view>
+        <view class="nb-c3">
+          <view class="nb-tier tier-{{item.tierKey}} {{item.isKing ? 'king' : ''}}">{{item.tierName}}</view>
+          <view class="nb-sub">{{item.subText}} · {{item.starText}}</view>
+        </view>
+        <text class="nb-c4">{{item.combined}}</text>
+      </view>
+    </view>
+
+    <!-- 历史回溯入口 -->
+    <view class="rebuild" bindtap="onBackfill">榜单数据异常？点此重建（历史回溯）</view>
+  </block>
+
+  <view wx:if="{{empty && !loading && !myRank}}" class="empty">
+    <view class="empty-badge">榜</view>
+    <view class="empty-title">还没有人上榜</view>
+    <view class="empty-sub">完成 5 场定级赛、比分经球友确认后，自动进入全国段位榜</view>
+  </view>
+</view>

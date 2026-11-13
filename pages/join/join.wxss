@@ -1,0 +1,738 @@
+/* pages/join/join.wxss */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.stat-line {
+  margin-bottom: 16rpx;
+}
+.act-info {
+  display: flex;
+  margin: 8rpx 0 12rpx;
+}
+.act-info-item {
+  flex: 1;
+  text-align: center;
+}
+.act-info-label {
+  display: block;
+  font-size: 22rpx;
+  color: #8A9890;
+}
+.act-info-val {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2C3E34;
+  margin-top: 4rpx;
+}
+.share-tip {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  text-align: center;
+  margin-top: 12rpx;
+}
+.mini-empty {
+  color: #8A9890;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 40rpx 0 32rpx;
+}
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #F0F2F1;
+}
+.player-row:last-of-type {
+  border-bottom: none;
+}
+.player-name {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+/* 报名表单（与 create 页一致） */
+.add-box {
+  margin-top: 20rpx;
+  background: #F7FAF8;
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+.add-input-row {
+  margin-bottom: 16rpx;
+}
+.add-input {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #E3EBE6;
+}
+.add-opts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.opt-label {
+  width: 80rpx;
+  color: #4A5A51;
+  font-size: 26rpx;
+}
+.chip {
+  background: #FFFFFF;
+  border: 2rpx solid #DCE5DF;
+  color: #4A5A51;
+  border-radius: 999rpx;
+  padding: 12rpx 36rpx;
+  font-size: 26rpx;
+  margin-right: 16rpx;
+}
+.chip.on {
+  background: #EAF4EE;
+  border-color: #1B7A4B;
+  color: #1B7A4B;
+  font-weight: 600;
+}
+.chip-picker {
+  min-width: 120rpx;
+  text-align: center;
+}
+.add-btn {
+  margin-top: 8rpx;
+}
+.add-tip {
+  font-size: 22rpx;
+  color: #8A9890;
+  margin-top: 16rpx;
+  text-align: center;
+}
+.share-btn {
+  margin-top: 8rpx;
+}
+
+/* 完成态 */
+.done-banner {
+  background: #EAF4EE;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-top: 16rpx;
+}
+.done-banner-text {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1B7A4B;
+}
+.done-banner-sub {
+  display: block;
+  font-size: 22rpx;
+  color: #5B8A70;
+  margin-top: 6rpx;
+}
+
+/* 比赛结果 */
+.res-block {
+  margin-bottom: 32rpx;
+}
+.res-block:last-child {
+  margin-bottom: 0;
+}
+.res-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.res-label {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2C3E34;
+}
+.res-status {
+  font-size: 22rpx;
+  color: #C77A1E;
+}
+.res-status.done {
+  color: #1B7A4B;
+  font-weight: 600;
+}
+.lb-head,
+.lb-player {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.lb-avatar {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+}
+.lb-avatar-ph {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+  color: #666;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lb-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 2rpx solid #F0F2F1;
+}
+.lb-head {
+  font-size: 20rpx;
+  color: #8A9890;
+  border-bottom: 2rpx solid #E3EBE6;
+}
+.lb-row:last-child {
+  border-bottom: none;
+}
+.lb-row.top {
+  background: #F7FAF8;
+}
+.lb-c1 {
+  flex-shrink: 0;
+  width: 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+}
+.lb-c1.rank {
+  color: #1B7A4B;
+  font-weight: 700;
+}
+.lb-c2 {
+  flex: 1;
+  font-size: 24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lb-c2.name {
+  font-weight: 500;
+}
+.lb-c3 {
+  flex-shrink: 0;
+  width: 76rpx;
+  text-align: right;
+  font-size: 22rpx;
+  color: #5B6B62;
+}
+.lb-c4 {
+  flex-shrink: 0;
+  width: 96rpx;
+  padding-left: 20rpx;
+  text-align: right;
+}
+.pts {
+  color: #1B7A4B;
+  font-weight: 700;
+  font-size: 26rpx;
+}
+
+.rd-match {
+  padding: 12rpx 16rpx;
+  background: #F7F8FA;
+  border-radius: 12rpx;
+  margin: 10rpx 0;
+}
+.rd-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.rd-court {
+  color: #888;
+  font-size: 22rpx;
+}
+.rd-score {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+}
+.rd-score.win {
+  color: #D64B4B;
+}
+.rd-score.win-r {
+  color: #D64B4B;
+}
+.rd-sides {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 4rpx;
+}
+.rd-team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.4;
+}
+.rd-team.right .rd-player {
+  flex-direction: row-reverse;
+}
+.rd-team.right .rd-pname {
+  text-align: right;
+}
+.rd-player {
+  display: flex;
+  align-items: center;
+  margin: 3rpx 0;
+  width: 100%;
+}
+.rd-pname {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rd-team.win {
+  color: #2E9E5B;
+  font-weight: 600;
+}
+.rd-avatar {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+}
+.rd-avatar-ph {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+  color: #666;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rd-pname {
+  margin-right: 8rpx;
+}
+.rd-gmark {
+  color: #999;
+  font-size: 20rpx;
+  font-weight: 400;
+}
+.rd-vs {
+  flex-shrink: 0;
+  align-self: center;
+  color: #BBB;
+  font-size: 20rpx;
+  margin: 0 20rpx;
+  font-weight: 600;
+}
+
+/* 轮次对阵表 */
+.cur-round-bar {
+  margin: 10rpx 0 16rpx;
+  padding: 12rpx 16rpx;
+  background: #FFF7E6;
+  border-radius: 12rpx;
+  border: 1rpx solid #FFD591;
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+}
+.cur-round-tag {
+  color: #D46B08;
+  font-weight: 600;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
+.cur-round-text {
+  color: #874D00;
+  line-height: 1.5;
+}
+
+.rd-block.current {
+  background: #FFF7E6;
+  border: 2rpx solid #FFC53D;
+  margin: 12rpx 0;
+}
+.rd-block.current .rd-head {
+  color: #D46B08;
+  font-weight: 600;
+}
+.rd-head {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #2C3E34;
+  margin-bottom: 8rpx;
+}
+.rd-match {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0;
+}
+.rd-court {
+  flex-shrink: 0;
+  width: 56rpx;
+  font-size: 20rpx;
+  color: #8A9890;
+}
+.rd-team {
+  flex: 1;
+  font-size: 24rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rd-team.win {
+  color: #1B7A4B;
+  font-weight: 700;
+}
+.rd-score {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #4A5A51;
+  margin: 0 12rpx;
+}
+
+/* 结果目标分提示 */
+.res-target {
+  font-size: 22rpx;
+  color: #1B7A4B;
+  margin-bottom: 12rpx;
+}
+
+/* 名单行信息区占满中间 */
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+/* 头像选择与展示 v4：严格正圆 */
+.add-avatar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.avatar-btn {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 120rpx;
+  height: 120rpx;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  line-height: 1;
+  box-shadow: 0 4rpx 14rpx rgba(27, 122, 75, 0.14);
+}
+.avatar-btn::after {
+  border: none;
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  border: 3rpx solid #FFFFFF;
+  box-sizing: border-box;
+}
+.avatar-ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #EAF6EF, #D5EBDE);
+  box-shadow: inset 0 0 0 3rpx #C2E0CE;
+}
+.avatar-ph::before {
+  content: '';
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: #9CCDB1;
+}
+.avatar-ph::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53%;
+  height: 28%;
+  border-radius: 50% 50% 0 0;
+  background: #9CCDB1;
+}
+.nick-pill {
+  flex: 1;
+  margin-left: 24rpx;
+  height: 100rpx;
+  background: #F4F6F5;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+.nick-pill.pill-focus {
+  background: #FFFFFF;
+  border-color: #1B7A4B;
+  box-shadow: 0 0 0 6rpx rgba(27, 122, 75, 0.08);
+}
+.nick-input {
+  flex: 1;
+  height: 100%;
+  font-size: 30rpx;
+  color: #2B3A33;
+}
+.nick-ph {
+  color: #AEBAB3;
+  font-size: 28rpx;
+}
+.avatar-tip {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  margin: 12rpx 0 20rpx 4rpx;
+  line-height: 1.5;
+}
+.player-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  background: #EAF4EE;
+}
+.avatar-img-sm {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: block;
+  border: 2rpx solid #EAF4EE;
+  box-sizing: border-box;
+}
+.avatar-ph-sm {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1B7A4B;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+/* ===== 头像+昵称 v5：紧凑正圆（覆盖旧规则，追加在尾部优先级最高） ===== */
+.add-avatar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rpx;
+}
+.avatar-btn {
+  width: 88rpx !important;
+  height: 88rpx !important;
+  max-width: 88rpx !important;
+  max-height: 88rpx !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1 !important;
+  font-size: 0 !important;
+  box-shadow: 0 3rpx 10rpx rgba(27, 122, 75, 0.12);
+}
+.avatar-btn::after {
+  border: none !important;
+}
+.avatar-img {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50% !important;
+  display: block;
+  box-sizing: border-box;
+}
+.avatar-ph {
+  position: relative;
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #EAF6EF, #D5EBDE);
+  box-shadow: inset 0 0 0 3rpx #C2E0CE;
+}
+.avatar-ph::before {
+  content: '';
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: #9CCDB1;
+}
+.avatar-ph::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53%;
+  height: 28%;
+  border-radius: 50% 50% 0 0;
+  background: #9CCDB1;
+}
+.nick-pill {
+  flex: 1;
+  margin-left: 20rpx;
+  height: 88rpx;
+  background: #F4F6F5;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 28rpx;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+.nick-pill.pill-focus {
+  background: #FFFFFF;
+  border-color: #1B7A4B;
+  box-shadow: 0 0 0 6rpx rgba(27, 122, 75, 0.08);
+}
+.nick-input {
+  flex: 1;
+  height: 100%;
+  font-size: 30rpx;
+  color: #2B3A33;
+}
+.nick-ph {
+  color: #AEBAB3;
+  font-size: 28rpx;
+}
+.avatar-tip {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  margin: 10rpx 0 16rpx 4rpx;
+  line-height: 1.5;
+}
+
+/* 比分进度提示 */
+.progress-tip {
+  margin-top: 20rpx;
+  background: #FFF8E6;
+  color: #A16207;
+  font-size: 24rpx;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  line-height: 1.5;
+}
+
+/* 待我确认提示条 */
+.todo-bar {
+  background: #FDF3E7;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 24rpx;
+}
+.todo-text {
+  color: #C77A1E;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+/* 单场结果确认 */
+.mcf {
+  margin-top: 12rpx;
+  padding-top: 12rpx;
+  border-top: 2rpx dashed #E3EBE6;
+}
+.mcf-state {
+  font-size: 22rpx;
+  text-align: center;
+}
+.mcf-state.mcf-pending {
+  color: #C77A1E;
+}
+.mcf-state.mcf-disputed {
+  color: #D64B4B;
+  font-weight: 600;
+}
+.mcf-state.mcf-confirmed {
+  color: #1B7A4B;
+}
+.mcf-btns {
+  display: flex;
+  margin-top: 12rpx;
+}
+.mcf-btn {
+  flex: 1;
+  font-size: 24rpx;
+  border-radius: 999rpx;
+  padding: 10rpx 0;
+  line-height: 1.5;
+  margin: 0;
+}
+.mcf-btn::after {
+  border: none;
+}
+.mcf-btn.ok {
+  background: #1B7A4B;
+  color: #FFFFFF;
+  margin-right: 16rpx;
+}
+.mcf-btn.no {
+  background: #FDEEE9;
+  color: #C75A3A;
+}
+.mcf-wait {
+  font-size: 22rpx;
+  color: #8A9890;
+  text-align: center;
+  margin-top: 8rpx;
+}

@@ -1,0 +1,64 @@
+<view class="page">
+  <view class="page-head">
+    <view class="page-title">最近球局</view>
+  </view>
+
+  <view wx:if="{{loadError}}" class="lb-error">加载遇到问题：{{loadError}}</view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <view class="empty-badge">···</view>
+    <view class="empty-sub">正在从云端加载…</view>
+  </view>
+
+  <view wx:if="{{activities.length === 0 && !loading && !loadError}}" class="empty">
+    <view class="empty-badge">球</view>
+    <view class="empty-title">还没有球局</view>
+    <view class="empty-sub">新建一个球局，录入报名名单后即可生成轮转</view>
+  </view>
+
+  <!-- 进行中的球局 -->
+  <view wx:if="{{activeList.length}}" class="sec-label">进行中</view>
+  <view wx:for="{{activeList}}" wx:key="id" class="card act-card" bindtap="openActivity" data-id="{{item.id}}" data-cloud="{{item.cloudId}}" data-owner="{{item.isOwner}}">
+    <view class="act-top">
+      <view class="act-name">{{item.name}}</view>
+      <view class="act-del" wx:if="{{item.isOwner}}" catchtap="deleteActivity" data-id="{{item.id}}" data-name="{{item.name}}">删除</view>
+    </view>
+    <view class="act-meta">
+      <text class="tag">报名 {{item.count}} 人</text>
+      <text class="tag">{{item.courts}} 片场地</text>
+      <text class="tag" wx:if="{{item.venue}}">{{item.venue}}</text>
+      <text class="tag" wx:if="{{item.date}}">{{item.date}}<text wx:if="{{item.startTime}}"> {{item.startTime}}<text wx:if="{{item.endTime}}">-{{item.endTime}}</text></text></text>
+    </view>
+    <view class="act-foot">
+      <view class="act-status-wrap">
+        <text class="act-status {{item.badges.length ? 'mid' : 'todo'}}">{{item.badgeText}}</text>
+        <text class="act-types" wx:if="{{item.badgeText2}}">{{item.badgeText2}}</text>
+      </view>
+      <text class="act-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 已结束的历史球局（直接展示，首页最多显示最近 10 场） -->
+  <view wx:if="{{historyList.length}}" class="sec-label">已结束</view>
+  <view wx:for="{{historyList}}" wx:key="id" class="card act-card history-card" bindtap="openActivity" data-id="{{item.id}}" data-cloud="{{item.cloudId}}" data-owner="{{item.isOwner}}">
+    <view class="act-top">
+      <view class="act-name">{{item.name}}</view>
+      <view class="act-del" wx:if="{{item.isOwner}}" catchtap="deleteActivity" data-id="{{item.id}}" data-name="{{item.name}}">删除</view>
+    </view>
+    <view class="act-meta">
+      <text class="tag">报名 {{item.count}} 人</text>
+      <text class="tag">{{item.courts}} 片场地</text>
+      <text class="tag" wx:if="{{item.venue}}">{{item.venue}}</text>
+      <text class="tag" wx:if="{{item.date}}">{{item.date}}<text wx:if="{{item.startTime}}"> {{item.startTime}}<text wx:if="{{item.endTime}}">-{{item.endTime}}</text></text></text>
+    </view>
+    <view class="act-foot">
+      <view class="act-status-wrap">
+        <text class="act-status ok">{{item.badgeText}}</text>
+        <text class="act-types" wx:if="{{item.badgeText2}}">{{item.badgeText2}}</text>
+      </view>
+      <text class="act-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="page-footer">球局轮转 v{{version}}</view>
+</view>

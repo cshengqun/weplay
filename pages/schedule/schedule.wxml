@@ -1,0 +1,167 @@
+<view class="page">
+  <!-- 类型切换 -->
+  <view class="tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="tab {{type === item.key ? 'on' : ''}}"
+      bindtap="onTabTap"
+      data-key="{{item.key}}">
+      {{item.label}}
+      <view class="tab-dot" wx:if="{{item.exists}}"></view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!hasRotation}}" class="empty">
+    <view class="empty-badge">轮</view>
+    <view class="empty-title">还没有{{type === 'singles' ? '单打' : type === 'doubles' ? '双打' : '混双'}}轮转</view>
+    <view class="empty-sub">去生成一张轮转表，人人有球打</view>
+    <button class="btn btn-primary empty-btn" bindtap="regenerate">去生成</button>
+  </view>
+
+  <block wx:if="{{hasRotation}}">
+    <!-- 未确认提示条 -->
+    <view class="confirm-bar" wx:if="{{!confirmed}}">
+      <text class="confirm-bar-text">轮转已生成，请核对对阵</text>
+      <text class="confirm-bar-sub">确认后锁定轮转并开始录入比分，不能再重新生成</text>
+    </view>
+
+    <!-- 概览 -->
+    <view class="card summary-card">
+      <view class="summary-row">
+        <view class="summary-item">
+          <view class="summary-num">{{summary.totalRounds}}</view>
+          <view class="summary-label">轮次</view>
+        </view>
+        <view class="summary-item">
+          <view class="summary-num">{{summary.totalMatches}}</view>
+          <view class="summary-label">总场次</view>
+        </view>
+        <view class="summary-item">
+          <view class="summary-num">{{summary.courts}}</view>
+          <view class="summary-label">场地</view>
+        </view>
+        <view class="summary-item">
+          <view class="summary-num small">{{summary.mode}}</view>
+          <view class="summary-label">{{summary.balance}}</view>
+        </view>
+      </view>
+      <view class="target-line" wx:if="{{targetScore > 0}}">每场先到 <text class="target-num">{{targetScore}}</text> 分者胜</view>
+      <view class="cf-summary" wx:if="{{cfSum.pending > 0 || cfSum.disputed > 0}}">
+        <text class="cf-s-pending" wx:if="{{cfSum.pending > 0}}">{{cfSum.pending}} 场待球友确认</text>
+        <text class="cf-s-disputed" wx:if="{{cfSum.disputed > 0}}">{{cfSum.disputed}} 场有异议</text>
+      </view>
+      <view class="exclude-line" wx:if="{{excludedNames.length > 0}}">
+        未设置性别，未进入混双：{{excludedNames}}
+      </view>
+    </view>
+
+    <!-- 战绩榜 -->
+    <view class="card">
+      <view class="card-title-row">
+        <view class="card-title">战绩榜</view>
+        <view class="lb-note">胜场 · 胜率排名 · 已记 {{scoredInfo.scored}}/{{scoredInfo.total}} 场</view>
+      </view>
+      <view class="lb-head">
+        <text class="lb-c1">#</text>
+        <text class="lb-c2">球员</text>
+        <text class="lb-c3">场</text>
+        <text class="lb-c3">胜</text>
+        <text class="lb-c3">负</text>
+        <text class="lb-c3">净胜分</text>
+        <text class="lb-c4">胜率</text>
+      </view>
+      <view wx:for="{{leaderboard}}" wx:key="idx" class="lb-row {{item.rank <= 3 && item.plays > 0 ? 'top' : ''}}">
+        <text class="lb-c1 {{item.rank <= 3 && item.plays > 0 ? 'rank' : ''}}">{{item.rank}}</text>
+        <view class="lb-player">
+  <image wx:if="{{item.avatar}}" src="{{item.avatar}}" class="lb-avatar" mode="aspectFill" />
+  <view wx:else class="lb-avatar-ph">{{item.name[0]}}</view>
+  <text class="lb-name">{{item.name}}</text>
+</view>
+        <text class="lb-c3">{{item.plays}}</text>
+        <text class="lb-c3">{{item.wins}}</text>
+        <text class="lb-c3">{{item.losses}}</text>
+        <text class="lb-c3">{{item.net > 0 ? '+' + item.net : item.net}}</text>
+        <text class="lb-c4">{{item.winRateText}}</text>
+      </view>
+      <view class="lb-tip" wx:if="{{leaderboard.length === 0}}">记完比分后自动生成战绩排名</view>
+    </view>
+
+    <!-- 轮次表 -->
+    <view wx:for="{{rounds}}" wx:key="no" class="card round-card">
+      <view class="round-head">
+        <text class="round-no">第 {{item.no}} 轮</text>
+        <text class="round-extra" wx:if="{{item.hasWaiting}}">轮空 {{item.waiting.length}} 人</text>
+      </view>
+      <view wx:for="{{item.matches}}" wx:for-item="m" wx:key="court" class="match-block">
+        <view class="match-row">
+          <view class="court-tag">场{{m.court}}</view>
+          <view class="match-teams">
+            <view class="match-team {{m.winnerA ? 'win-team' : ''}}">
+              <view wx:for="{{m.teamA}}" wx:for-item="p" wx:key="name" class="match-player">
+                <image wx:if="{{p.avatar}}" src="{{p.avatar}}" class="match-avatar" mode="aspectFill" />
+                <view wx:else class="match-avatar-ph">{{p.name[0]}}</view>
+                <text class="match-pname" data-name="{{p.name}}{{p.genderMark}}" bindtap="onNameTap">{{p.name}}<text class="match-gmark">{{p.genderMark}}</text></text>
+              </view>
+            </view>
+            <view class="match-vs">VS</view>
+            <view class="match-team right {{m.winnerB ? 'win-team' : ''}}">
+              <view wx:for="{{m.teamB}}" wx:for-item="p" wx:key="name" class="match-player">
+                <image wx:if="{{p.avatar}}" src="{{p.avatar}}" class="match-avatar" mode="aspectFill" />
+                <view wx:else class="match-avatar-ph">{{p.name[0]}}</view>
+                <text class="match-pname" data-name="{{p.name}}{{p.genderMark}}" bindtap="onNameTap">{{p.name}}<text class="match-gmark">{{p.genderMark}}</text></text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 比分录入（确认后可用，自由输入分数） -->
+        <view class="score-box" wx:if="{{confirmed}}">
+          <view class="score-side">
+            <input class="snum-input {{m.winnerA ? 'win' : ''}}" type="number" value="{{m.sA}}"
+              placeholder="0" maxlength="3" data-key="{{m.key}}" data-side="A" bindblur="onScoreInput" />
+          </view>
+          <text class="score-colon">:</text>
+          <view class="score-side">
+            <input class="snum-input {{m.winnerB ? 'win' : ''}}" type="number" value="{{m.sB}}"
+              placeholder="0" maxlength="3" data-key="{{m.key}}" data-side="B" bindblur="onScoreInput" />
+          </view>
+          <view class="score-state {{m.scored ? '' : 'muted'}}">
+            <text wx:if="{{m.scored}}">{{m.winnerText}}</text>
+            <text wx:else>未记分</text>
+          </view>
+        </view>
+        <view class="score-pending" wx:else>确认轮转后可录入每场比分</view>
+        <!-- 结果确认状态（球友多方确认） -->
+        <view class="cf-line cf-{{m.cfStatus}}" wx:if="{{confirmed && m.scored}}">
+          <text wx:if="{{m.cfStatus === 'pending'}}">{{m.cfText}} · 球友确认后生效</text>
+          <text wx:elif="{{m.cfStatus === 'disputed'}}">{{m.cfText}} · 请核对并修改比分</text>
+          <text wx:else>{{m.cfText}}</text>
+        </view>
+      </view>
+      <view wx:if="{{item.hasWaiting}}" class="waiting-line">
+        轮空：{{item.waiting}}
+      </view>
+    </view>
+
+    <!-- 上场统计 -->
+    <view class="card">
+      <view class="card-title">每人上场次数</view>
+      <view class="stat-chips">
+        <view wx:for="{{stats}}" wx:key="name" class="stat-chip {{item.hot ? 'hot' : ''}}">
+          <text class="stat-name">{{item.name}}</text>
+          <text class="stat-num">{{item.plays}} 场</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 底部操作：未确认时确认+重新生成；确认后仅显示已确定状态 -->
+  <view class="footer-bar" wx:if="{{hasRotation && !confirmed}}">
+    <button class="btn btn-ghost" bindtap="regenerate">重新生成</button>
+    <button class="btn btn-primary" bindtap="confirmRotation">确认轮转</button>
+  </view>
+  <view class="footer-bar locked" wx:if="{{hasRotation && confirmed}}">
+    <view class="locked-text">✓ 轮转已确定，比分已锁定录入</view>
+  </view>
+</view>

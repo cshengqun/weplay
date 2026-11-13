@@ -1,0 +1,9 @@
+{
+  "name": "activity",
+  "version": "1.0.0",
+  "description": "weplay 球局写操作统一入口：报名/比分/确认/异议/更新/删除",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

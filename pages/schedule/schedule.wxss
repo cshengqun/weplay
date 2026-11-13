@@ -1,0 +1,458 @@
+/* pages/schedule/schedule.wxss */
+.tabs {
+  display: flex;
+  background: #E7EEEA;
+  border-radius: 999rpx;
+  padding: 8rpx;
+  margin-bottom: 24rpx;
+}
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  color: #5B6B62;
+  position: relative;
+}
+.tab.on {
+  background: #FFFFFF;
+  color: #1B7A4B;
+  font-weight: 700;
+}
+.tab-dot {
+  position: absolute;
+  right: 28rpx;
+  top: 16rpx;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #1B7A4B;
+}
+
+.empty-btn {
+  margin-top: 40rpx;
+  width: 240rpx;
+  display: inline-block;
+}
+
+/* 概览 */
+.summary-row {
+  display: flex;
+  align-items: center;
+}
+.summary-item {
+  flex: 1;
+  text-align: center;
+  border-right: 2rpx solid #F0F2F1;
+}
+.summary-item:last-child {
+  border-right: none;
+}
+.summary-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1B7A4B;
+}
+.summary-num.small {
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #2C3E34;
+}
+.summary-label {
+  font-size: 22rpx;
+  color: #8A9890;
+  margin-top: 4rpx;
+}
+.exclude-line {
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #F0F2F1;
+  font-size: 24rpx;
+  color: #C77A1E;
+}
+
+/* 轮次卡片 */
+.round-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.round-no {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2C3E34;
+}
+.round-extra {
+  font-size: 24rpx;
+  color: #C77A1E;
+}
+.match-block {
+  margin-bottom: 12rpx;
+  background: #F7FAF8;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx 16rpx;
+}
+.match-row {
+  display: flex;
+  align-items: flex-start;
+}
+.court-tag {
+  flex-shrink: 0;
+  background: #EAF4EE;
+  color: #1B7A4B;
+  font-size: 22rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+  margin-right: 20rpx;
+}
+.match-teams {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.match-team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.match-player {
+  display: flex;
+  align-items: center;
+  margin: 3rpx 0;
+  width: 100%;
+}
+.match-pname {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.match-team.right .match-player {
+  flex-direction: row-reverse;
+}
+.match-team.right .match-pname {
+  text-align: right;
+}
+.match-team.win-team {
+  color: #1B7A4B;
+  font-weight: 700;
+}
+.match-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+}
+.match-avatar-ph {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+  color: #666;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.match-pname {
+  margin-right: 8rpx;
+}
+.match-gmark {
+  color: #999;
+  font-size: 20rpx;
+  font-weight: 400;
+}
+.match-vs {
+  color: #B9C4BE;
+  font-size: 24rpx;
+  font-weight: 700;
+  margin: 0 12rpx;
+  flex-shrink: 0;
+}
+
+/* 确认提示条 */
+.confirm-bar {
+  background: #FDF3E7;
+  border-radius: 20rpx;
+  padding: 20rpx 28rpx;
+  margin-bottom: 24rpx;
+}
+.confirm-bar-text {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #C77A1E;
+}
+.confirm-bar-sub {
+  display: block;
+  font-size: 22rpx;
+  color: #A8882F;
+  margin-top: 6rpx;
+}
+
+/* 目标分提示 */
+.target-line {
+  text-align: center;
+  font-size: 24rpx;
+  color: #5B6B62;
+  margin-top: 12rpx;
+}
+.target-num {
+  color: #1B7A4B;
+  font-weight: 700;
+  font-size: 28rpx;
+}
+
+/* 比分录入 */
+.score-box {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx dashed #E3EBE6;
+}
+.score-side {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.snum-input {
+  width: 100%;
+  min-height: 64rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DCE5DF;
+  border-radius: 12rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A5A51;
+}
+.snum-input.win {
+  border-color: #1B7A4B;
+  color: #1B7A4B;
+}
+.score-colon {
+  color: #8A9890;
+  font-weight: 700;
+  margin: 0 12rpx;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+.score-state {
+  flex-shrink: 0;
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #1B7A4B;
+  font-weight: 600;
+  max-width: 260rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.score-state.muted {
+  color: #B9C4BE;
+  font-weight: 400;
+}
+.score-pending {
+  font-size: 22rpx;
+  color: #B9C4BE;
+  text-align: center;
+  padding: 16rpx 0 4rpx;
+}
+.waiting-line {
+  font-size: 24rpx;
+  color: #8A9890;
+  margin-top: 8rpx;
+}
+
+/* 底部锁定态 */
+.footer-bar.locked {
+  justify-content: center;
+}
+.locked-text {
+  font-size: 26rpx;
+  color: #1B7A4B;
+  font-weight: 600;
+  padding: 12rpx 0;
+}
+
+/* 战绩榜 */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.card-title-row .card-title {
+  margin-bottom: 0;
+}
+.lb-note {
+  font-size: 22rpx;
+  color: #8A9890;
+}
+.lb-head,
+.lb-player {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.lb-avatar {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+}
+.lb-avatar-ph {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+  background: #E5E6EB;
+  color: #666;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lb-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 2rpx solid #F0F2F1;
+}
+.lb-head {
+  font-size: 22rpx;
+  color: #8A9890;
+  border-bottom: 2rpx solid #E3EBE6;
+}
+.lb-row:last-child {
+  border-bottom: none;
+}
+.lb-row.top {
+  background: #F7FAF8;
+}
+.lb-c1 {
+  flex-shrink: 0;
+  width: 56rpx;
+  text-align: center;
+  font-size: 26rpx;
+}
+.lb-c1.rank {
+  color: #1B7A4B;
+  font-weight: 700;
+}
+.lb-c2 {
+  flex: 1;
+  font-size: 26rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lb-c2.name {
+  font-weight: 500;
+}
+.lb-c3 {
+  flex-shrink: 0;
+  width: 76rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #5B6B62;
+}
+.lb-c4 {
+  flex-shrink: 0;
+  width: 96rpx;
+  padding-left: 20rpx;
+  text-align: right;
+}
+.pts {
+  color: #1B7A4B;
+  font-weight: 700;
+  font-size: 28rpx;
+}
+.lb-tip {
+  font-size: 24rpx;
+  color: #8A9890;
+  text-align: center;
+  padding: 24rpx 0 8rpx;
+}
+
+/* 统计 */
+.stat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.stat-chip {
+  display: flex;
+  align-items: center;
+  background: #F7FAF8;
+  border-radius: 999rpx;
+  padding: 10rpx 24rpx;
+  font-size: 26rpx;
+}
+.stat-chip.hot {
+  background: #FDEEE9;
+  color: #C77A1E;
+}
+.stat-name {
+  color: #2C3E34;
+  margin-right: 12rpx;
+}
+.stat-num {
+  color: #1B7A4B;
+  font-weight: 600;
+}
+
+/* 结果确认状态（多方确认） */
+.cf-summary {
+  display: flex;
+  justify-content: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #F0F2F1;
+  font-size: 24rpx;
+}
+.cf-s-pending {
+  color: #C77A1E;
+  margin-right: 28rpx;
+}
+.cf-s-disputed {
+  color: #D64B4B;
+}
+.cf-line {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  text-align: center;
+}
+.cf-line.cf-pending {
+  color: #C77A1E;
+}
+.cf-line.cf-disputed {
+  color: #D64B4B;
+  font-weight: 600;
+}
+.cf-line.cf-confirmed {
+  color: #1B7A4B;
+}

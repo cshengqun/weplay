@@ -1,0 +1,147 @@
+<view class="page">
+  <!-- 比赛结果（已生成轮转的显示结果入口，未生成不显示） -->
+  <view class="card" wx:if="{{results.length > 0}}">
+    <view class="card-title-row">
+      <view class="card-title">比赛结果</view>
+      <view class="clear-link result-done" wx:if="{{resultsDone}}">✓ 全部完成</view>
+    </view>
+    <view wx:if="{{isDone}}" class="done-banner">
+      <text class="done-banner-text">🏁 本场球局已完成</text>
+      <text class="done-banner-sub">结果已同步云端，任何设备可查看</text>
+    </view>
+    <view wx:for="{{results}}" wx:key="type" class="result-item" bindtap="goResult" data-type="{{item.type}}">
+      <view class="result-label">{{item.label}}</view>
+      <view class="result-info">
+        <view class="result-status {{item.done ? 'done' : ''}}">{{item.scored}}/{{item.total}} 场 · {{item.statusText}}</view>
+        <view class="result-top3" wx:if="{{item.top3.length > 0}}">
+          <text class="rt" wx:for="{{item.top3}}" wx:for-item="t" wx:for-index="ti" wx:key="name">{{ti == 0 ? '1' : ti == 1 ? '2' : '3'}} {{t.name}} {{t.wins}}胜</text>
+        </view>
+      </view>
+      <text class="act-arrow">›</text>
+    </view>
+    <view class="result-hint" wx:if="{{!resultsDone}}">点击查看轮转表并录入比分</view>
+  </view>
+
+  <!-- 活动信息 -->
+  <view class="card">
+    <view class="card-title">球局信息</view>
+    <view class="form-row">
+      <view class="form-label">球局名称</view>
+      <input class="form-input" placeholder="如：周五羽毛球局" value="{{name}}" bindinput="onNameInput" maxlength="20" disabled="{{isDone}}" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">日期</view>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange" disabled="{{isDone}}">
+        <view class="form-input picker-val">{{date}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">开始时间</view>
+      <picker mode="multiSelector" range="{{timeRange}}" value="{{timeIndex}}" bindchange="onStartTimeChange" disabled="{{isDone}}">
+        <view class="form-input picker-val">{{startTime}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">预计时长</view>
+      <picker range="{{durationOptions}}" value="{{durationIndex}}" bindchange="onDurationChange" disabled="{{isDone}}">
+        <view class="form-input picker-val">{{durationHours}} 小时</view>
+      </picker>
+      <view class="form-tip">用于估算轮转场次</view>
+    </view>
+    <view class="form-row">
+      <view class="form-label">地点</view>
+      <input class="form-input" placeholder="如：XX体育中心羽毛球馆" value="{{venue}}" bindinput="onVenueInput" maxlength="40" disabled="{{isDone}}" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">场地</view>
+      <input class="form-input" placeholder="如：1号场、2号场（自由填写）" value="{{courtText}}" bindinput="onCourtInput" maxlength="40" disabled="{{isDone}}" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">场地数</view>
+      <view class="stepper">
+        <view class="stepper-btn {{courts <= 1 || isDone ? 'disabled' : ''}}" bindtap="courtsMinus">−</view>
+        <view class="stepper-num">{{courts}}</view>
+        <view class="stepper-btn {{courts >= 10 || isDone ? 'disabled' : ''}}" bindtap="courtsPlus">＋</view>
+      </view>
+      <view class="form-tip">片</view>
+    </view>
+    <!-- 分享（新建与编辑均可用：起名并同步云端后即可分享，分享给球友在线报名） -->
+    <view class="share-bar">
+      <button class="btn btn-ghost share-btn" open-type="share" bindtap="onShareTap" disabled="{{!shareReady}}">{{isDone ? '分享比赛结果' : '分享到微信群'}}</button>
+      <view class="share-status {{cloudId ? 'ok' : 'warn'}}" wx:if="{{!(cloudId && !isDone)}}">
+        <text wx:if="{{cloudId && isDone}}">结果已同步云端 · 任何人可查看</text>
+        <text wx:elif="{{cloudOn && name}}">正在同步云端，稍候即可分享</text>
+        <text wx:elif="{{cloudOn}}">填写球局名称后即可分享</text>
+        <text wx:else>未开通云端分享（见 README 云开发开通步骤）</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 报名名单（完成后只读） -->
+  <view class="card">
+    <view class="card-title-row">
+      <view class="card-title">报名名单（{{players.length}} 人）</view>
+      <view class="title-actions" wx:if="{{!isDone}}">
+        <view class="clear-link" bindtap="refreshNow" wx:if="{{cloudId}}">刷新云端</view>
+        <view class="clear-link" wx:if="{{players.length > 0}}" bindtap="clearPlayers">清空</view>
+      </view>
+    </view>
+    <view class="stat-line" wx:if="{{players.length > 0}}">
+      <text class="tag">男 {{maleCount}}</text>
+      <text class="tag">女 {{femaleCount}}</text>
+      <text class="tag tag-gray" wx:if="{{unknownCount > 0}}">未设性别 {{unknownCount}}</text>
+    </view>
+
+    <view wx:if="{{players.length === 0}}" class="mini-empty">
+      还没有人报名
+    </view>
+
+    <view wx:for="{{players}}" wx:key="id" class="player-row">
+      <view class="player-avatar">
+        <image wx:if="{{item.avatar}}" src="{{item.avatar}}" class="avatar-img-sm" mode="aspectFill" />
+        <view wx:else class="avatar-ph-sm">{{item.name[0]}}</view>
+      </view>
+      <view class="player-info">
+        <view class="player-name">{{item.name}}</view>
+        <view class="player-tags">
+          <text class="tag {{item.gender === 'male' ? '' : item.gender === 'female' ? 'tag-orange' : 'tag-gray'}}">{{item.genderText}}</text>
+          <text class="tag tag-gray" wx:if="{{item.levelText !== '未设置'}}">{{item.levelText}}</text>
+        </view>
+      </view>
+      <view class="player-del" wx:if="{{!isDone}}" catchtap="removePlayer" data-id="{{item.id}}">移除</view>
+    </view>
+
+    <!-- 添加球员（完成后隐藏） -->
+    <view class="add-box" wx:if="{{!isDone}}">
+      <view class="add-title">添加报名球员</view>
+      <view class="add-avatar-row">
+        <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image wx:if="{{newAvatar}}" src="{{newAvatar}}" class="avatar-img" mode="aspectFill" />
+          <view wx:else class="avatar-ph"></view>
+        </button>
+        <view class="nick-pill {{nickFocus ? 'pill-focus' : ''}}">
+          <input class="nick-input" type="nickname" placeholder="点此一键使用微信昵称" placeholder-class="nick-ph" value="{{newName}}" bindinput="onNewNameInput" bindfocus="onNickFocus" bindblur="onNickBlur" maxlength="12" confirm-type="done" />
+        </view>
+      </view>
+      <view class="avatar-tip">第一次点一下输入框，用微信昵称授权，之后自动带出 · 性别需手动选择</view>
+      <view class="add-opts">
+        <view class="opt-label">性别</view>
+        <view class="chip {{newGender === 'male' ? 'on' : ''}}" bindtap="onGenderTap" data-gender="male">男</view>
+        <view class="chip {{newGender === 'female' ? 'on' : ''}}" bindtap="onGenderTap" data-gender="female">女</view>
+      </view>
+      <view class="add-opts">
+        <view class="opt-label">水平</view>
+        <picker range="{{levelRange}}" value="{{levelIndex}}" bindchange="onLevelChange">
+          <view class="chip chip-picker {{newLevel ? 'on' : ''}}">{{newLevel ? levelRange[levelIndex] : '选填'}}</view>
+        </picker>
+      </view>
+      <button class="btn btn-primary add-btn" bindtap="addPlayer">添加报名</button>
+      <view class="add-tip">性别用于混双轮转，双打/单打可不填</view>
+    </view>
+  </view>
+
+  <!-- 底部操作（完成后隐藏生成入口） -->
+  <view class="footer-bar" wx:if="{{!isDone}}">
+    <button class="btn btn-primary {{hasRotation ? '' : players.length < 2 ? 'btn-disabled' : ''}}" bindtap="goRotation">{{hasRotation ? '查看 / 录入比分' : '生成轮转'}}</button>
+  </view>
+</view>

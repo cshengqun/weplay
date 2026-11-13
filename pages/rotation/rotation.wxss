@@ -1,0 +1,89 @@
+/* pages/rotation/rotation.wxss */
+.stat-line {
+  margin-bottom: 12rpx;
+}
+.warn-line {
+  font-size: 24rpx;
+  color: #C77A1E;
+}
+
+.type-grid {
+  display: flex;
+  gap: 20rpx;
+}
+.type-item {
+  flex: 1;
+  background: #F7FAF8;
+  border: 2rpx solid #E3EBE6;
+  border-radius: 20rpx;
+  padding: 28rpx 20rpx;
+  text-align: center;
+}
+.type-item.on {
+  background: #EAF4EE;
+  border-color: #1B7A4B;
+}
+.type-label {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2C3E34;
+  margin-bottom: 8rpx;
+}
+.type-item.on .type-label {
+  color: #1B7A4B;
+}
+.type-desc {
+  font-size: 22rpx;
+  color: #7C8B83;
+}
+
+.form-tip {
+  color: #7C8B83;
+  font-size: 24rpx;
+  margin-left: 20rpx;
+  flex: 1;
+}
+.hint-line {
+  font-size: 22rpx;
+  color: #8A9890;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #F0F2F1;
+}
+
+/* 目标分数选择 */
+.target-chips {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.chip {
+  background: #FFFFFF;
+  border: 2rpx solid #DCE5DF;
+  color: #4A5A51;
+  border-radius: 999rpx;
+  padding: 12rpx 28rpx;
+  font-size: 26rpx;
+  display: inline-flex;
+  align-items: center;
+}
+.chip.on {
+  background: #EAF4EE;
+  border-color: #1B7A4B;
+  color: #1B7A4B;
+  font-weight: 600;
+}
+.target-input {
+  min-width: 96rpx;
+  font-size: 26rpx;
+  text-align: center;
+  color: #4A5A51;
+}
+
+/* 轮数选择 */
+.round-chip {
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.35;
+}
